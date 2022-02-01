@@ -37,7 +37,7 @@ def add_label(label: str, value: str) -> None:
     """
     Adds an arbitrary label to the current logging context
     """
-    labels = LABELS.get() or {}
+    labels = LABELS.get({})
     labels[label] = value
     LABELS.set(labels)
 
