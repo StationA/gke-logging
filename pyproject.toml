@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gke-logging"
-version = "0.0.0"
+version = "0.0.1"
 description = "Utilities for interacting with logging facilities in GKE workloads"
 authors = ["Station A <oss@stationa.com>"]
 license = "MIT"
