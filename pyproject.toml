@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "gke-logging"
+version = "0.0.0"
+description = "Utilities for interacting with logging facilities in GKE workloads"
+authors = ["Station A <oss@stationa.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pydantic = "^1.9.0"
+starlette = {version = "^0.18.0", optional = true}
+
+[tool.poetry.extras]
+asgi = ["starlette"]
+
+[tool.poetry.dev-dependencies]
+black = "21.12b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
