@@ -2,6 +2,7 @@
 name = "gke-logging"
 version = "0.0.1"
 description = "Utilities for interacting with logging facilities in GKE workloads"
+readme = "README.md"
 authors = ["Station A <oss@stationa.com>"]
 license = "MIT"
 
