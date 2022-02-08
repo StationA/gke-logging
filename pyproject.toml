@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gke-logging"
-version = "0.0.2"
+version = "0.0.3"
 description = "Utilities for interacting with logging facilities in GKE workloads"
 readme = "README.md"
 authors = ["Station A <oss@stationa.com>"]
