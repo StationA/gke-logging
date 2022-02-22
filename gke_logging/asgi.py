@@ -28,7 +28,7 @@ def build_http_request_from_scope(scope: Scope) -> HttpRequest:
         url=str(req.url),
         # TODO: Confirm if this is accurate even for body-less requests
         request_size=req.headers.get("Content-Length"),
-        user_agent=req.headers["User-Agent"],
+        user_agent=req.headers.get("User-Agent"),
         remote_ip=req.client.host,
         server_ip=server_ip,
         referer=req.headers.get("Referer"),

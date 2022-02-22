@@ -61,7 +61,7 @@ class HttpRequest(BaseModel):
     method: HttpMethod = Field(alias="requestMethod")
     url: AnyHttpUrl = Field(alias="requestUrl")
     request_size: typing.Optional[str] = Field(None, alias="requestSize")
-    user_agent: str = Field(alias="userAgent")
+    user_agent: typing.Optional[str] = Field(None, alias="userAgent")
     remote_ip: str = Field(alias="remoteIp")
     server_ip: str = Field(alias="serverIp")
     referer: typing.Optional[str] = None
