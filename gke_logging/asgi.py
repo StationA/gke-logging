@@ -112,7 +112,7 @@ class GKELoggingMiddleware:
             referer=http_request.referer,
             user_agent=http_request.user_agent,
         )
-        data = {k: v or "-" for k, v in data.items()}
+        data = {k: v if v is not None else "-" for k, v in data.items()}
         log_line = self._access_log_message_format.format(**data)
 
         # Log levels should reflect status code
