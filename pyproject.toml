@@ -7,7 +7,7 @@ authors = ["Station A <oss@stationa.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 pydantic = "^1.9.0"
 starlette = {version = ">=0.18,<0.28", optional = true}
 
