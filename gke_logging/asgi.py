@@ -4,13 +4,14 @@ import time
 import typing
 
 from datetime import datetime
+from pydantic_core import Url
 from starlette.datastructures import Headers
 from starlette.types import ASGIApp, Message, Receive, Send, Scope
 from starlette.requests import Request
 
 from .context import get_user_id, set_http_request, utcnow
 from .pylogging import GKELoggingFormatter
-from .types import HttpRequest
+from .types import HttpMethod, HttpRequest
 
 
 def build_http_request_from_scope(scope: Scope) -> HttpRequest:
@@ -25,11 +26,11 @@ def build_http_request_from_scope(scope: Scope) -> HttpRequest:
     return HttpRequest(
         protocol=protocol,
         method=req.method,
-        url=str(req.url),
+        url=Url(str(req.url)),
         # TODO: Confirm if this is accurate even for body-less requests
         request_size=req.headers.get("Content-Length"),
         user_agent=req.headers.get("User-Agent"),
-        remote_ip=req.client.host,
+        remote_ip=req.client.host if req.client else None,
         server_ip=server_ip,
         referer=req.headers.get("Referer"),
     )

@@ -53,13 +53,13 @@ class GKELoggingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         timestamp: datetime = record.__dict__.get("timestamp", utcnow())
         log_entry = LogEntry(
-            time=timestamp.isoformat(),
+            time=timestamp,
             severity=LogLevel[record.levelname],
             message=super().format(record),
             http_request=get_http_request(),
             source_location=SourceLocation(
                 file=record.pathname,
-                line=record.lineno,
+                line=f"{record.lineno}",
                 function=record.funcName,
             ),
             span_id=get_span_id(),

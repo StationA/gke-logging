@@ -2,7 +2,7 @@ import typing
 
 from datetime import datetime
 from enum import Enum
-from pydantic import AnyHttpUrl, BaseModel, Field
+from pydantic import AfterValidator, AnyHttpUrl, BaseModel, Field
 
 
 class LogLevel(str, Enum):
@@ -23,12 +23,8 @@ class LogLevel(str, Enum):
     EMERGENCY = "EMERGENCY"
 
 
-class HttpMethod(str):
-    """
-    Typed str to match valid HTTP methods
-    """
-
-    ALLOWED_METHODS = (
+def _check_method(method: str):
+    if method.lower() not in (
         "get",
         "post",
         "patch",
@@ -37,17 +33,12 @@ class HttpMethod(str):
         "options",
         "head",
         "connect",
-    )
+    ):
+        raise ValueError(f"Invalid HTTP method: {method}")
+    return method
 
-    @classmethod
-    def __get_validators__(clss):
-        yield clss.validate
 
-    @classmethod
-    def validate(clss, v):
-        if v.lower() not in HttpMethod.ALLOWED_METHODS:
-            raise ValueError(f"Invalid HTTP method: {v}")
-        return clss(v)
+HttpMethod = typing.Annotated[str, AfterValidator(_check_method)]
 
 
 class HttpRequest(BaseModel):
@@ -58,19 +49,24 @@ class HttpRequest(BaseModel):
     """
 
     protocol: str
-    method: HttpMethod = Field(alias="requestMethod")
-    url: AnyHttpUrl = Field(alias="requestUrl")
-    request_size: typing.Optional[str] = Field(None, alias="requestSize")
-    user_agent: typing.Optional[str] = Field(None, alias="userAgent")
-    remote_ip: str = Field(alias="remoteIp")
-    server_ip: str = Field(alias="serverIp")
+    method: HttpMethod = Field(serialization_alias="requestMethod")
+    url: AnyHttpUrl = Field(serialization_alias="requestUrl")
+    request_size: typing.Optional[str] = Field(
+        default=None, serialization_alias="requestSize"
+    )
+    user_agent: typing.Optional[str] = Field(
+        default=None, serialization_alias="userAgent"
+    )
+    remote_ip: typing.Optional[str] = Field(
+        default=None, serialization_alias="remoteIp"
+    )
+    server_ip: str = Field(serialization_alias="serverIp")
     referer: typing.Optional[str] = None
     status: typing.Optional[int] = None
-    response_size: typing.Optional[str] = Field(None, alias="responseSize")
+    response_size: typing.Optional[str] = Field(
+        default=None, serialization_alias="responseSize"
+    )
     latency: typing.Optional[str] = None
-
-    class Config:
-        allow_population_by_field_name = True
 
 
 class SourceLocation(BaseModel):
@@ -84,9 +80,6 @@ class SourceLocation(BaseModel):
     line: str
     function: str
 
-    class Config:
-        allow_population_by_field_name = True
-
 
 class LogEntry(BaseModel):
     """
@@ -99,12 +92,15 @@ class LogEntry(BaseModel):
     time: datetime
     severity: LogLevel
     message: str
-    http_request: typing.Optional[HttpRequest] = Field(alias="httpRequest")
-    span_id: typing.Optional[str] = Field(None, alias="logging.googleapis.com/spanId")
-    source_location: typing.Optional[SourceLocation] = Field(
-        None, alias="logging.googleapis.com/sourceLocation"
+    http_request: typing.Optional[HttpRequest] = Field(
+        default=None, serialization_alias="httpRequest"
     )
-    labels: typing.Mapping[str, str] = Field({}, alias="logging.googleapis.com/labels")
-
-    class Config:
-        allow_population_by_field_name = True
+    span_id: typing.Optional[str] = Field(
+        default=None, serialization_alias="logging.googleapis.com/spanId"
+    )
+    source_location: typing.Optional[SourceLocation] = Field(
+        default=None, serialization_alias="logging.googleapis.com/sourceLocation"
+    )
+    labels: typing.Mapping[str, str] = Field(
+        default_factory=dict, serialization_alias="logging.googleapis.com/labels"
+    )
