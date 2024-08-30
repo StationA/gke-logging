@@ -17,6 +17,7 @@ asgi = ["starlette"]
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.11.2"
 black = "^24.8.0"
+ruff = "^0.6.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -11,7 +11,7 @@ from starlette.requests import Request
 
 from .context import get_user_id, set_http_request, utcnow
 from .pylogging import GKELoggingFormatter
-from .types import HttpMethod, HttpRequest
+from .types import HttpRequest
 
 
 def build_http_request_from_scope(scope: Scope) -> HttpRequest:
