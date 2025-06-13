@@ -4,7 +4,7 @@ import time
 import typing
 
 from datetime import datetime
-from pydantic_core import Url
+from pydantic import AnyHttpUrl
 from starlette.datastructures import Headers
 from starlette.types import ASGIApp, Message, Receive, Send, Scope
 from starlette.requests import Request
@@ -26,7 +26,7 @@ def build_http_request_from_scope(scope: Scope) -> HttpRequest:
     return HttpRequest(
         protocol=protocol,
         method=req.method,
-        url=Url(str(req.url)),
+        url=AnyHttpUrl(str(req.url)),
         # TODO: Confirm if this is accurate even for body-less requests
         request_size=req.headers.get("Content-Length"),
         user_agent=req.headers.get("User-Agent"),
