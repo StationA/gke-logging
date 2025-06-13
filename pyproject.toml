@@ -10,6 +10,7 @@ license = "MIT"
 python = ">3.10,<3.11"
 pydantic = ">=2,<3"
 starlette = {version = "<1", optional = true}
+pytest = "^8.4.0"
 
 [tool.poetry.extras]
 asgi = ["starlette"]
