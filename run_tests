@@ -10,3 +10,4 @@ ruff check
 mypy ${SCRIPT_PATH}/gke_logging
 
 poetry install -E asgi
+poetry run pytest tests
