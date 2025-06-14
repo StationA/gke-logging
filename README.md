@@ -9,6 +9,7 @@ Utilities for interacting with logging facilities in GKE workloads
 ### Requirements
 
 - Python 3.7+
+- Python 3.10+ for latest version
 - [Poetry](https://python-poetry.org/) (for development only)
 
 ### Install from PyPI (recommended)
@@ -29,6 +30,11 @@ pip install git+https://github.com/StationA/gke-logging.git#egg=gke-logging
 git clone https://github.com/StationA/gke-logging.git
 cd gke-logging
 poetry install
+```
+
+To get full functionality from the ASGI module install with:
+```
+poetry install -E asgi
 ```
 
 ## Usage
@@ -172,3 +178,8 @@ When contributing to this repository, please follow the steps below:
 1. Fork the repository
 1. Submit your patch in one commit, or a series of well-defined commits
 1. Submit your pull request and make sure you reference the issue you are addressing
+
+## Testing your code
+
+Make sure to run `./run_tests` in the same directory that `pyproject.toml` exists in, to
+make sure that any changes will still build and satisfy a simple test.
