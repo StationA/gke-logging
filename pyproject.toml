@@ -7,7 +7,7 @@ authors = ["Station A <oss@stationa.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">3.10"
 pydantic = ">=2,<3"
 starlette = {version = "<1", optional = true}
 
@@ -17,6 +17,7 @@ asgi = ["starlette"]
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.11.2"
 black = "^24.8.0"
+pytest = "^8.4.0"
 ruff = "^0.6.3"
 
 [build-system]
