@@ -36,6 +36,11 @@ To get full functionality from the ASGI module install with:
 ```
 poetry install -E asgi
 ```
+If including in a `pyproject.toml`, this will look like:
+```
+gke-logging = { version = "^0.1.0", extras = ["asgi"] }
+```
+
 
 ## Usage
 
