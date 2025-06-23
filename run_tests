@@ -8,6 +8,4 @@ PY_VERSION=$(python --version | sed 's/\s\+/-/g')
 black --diff --check ${SCRIPT_PATH}/gke_logging
 ruff check
 mypy ${SCRIPT_PATH}/gke_logging
-
-poetry install -E asgi
-poetry run pytest tests
+pytest tests
