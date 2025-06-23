@@ -181,5 +181,5 @@ When contributing to this repository, please follow the steps below:
 
 ## Testing your code
 
-Make sure to run `./run_tests` in the same directory that `pyproject.toml` exists in, to
+Make sure to run `poetry run ./run_tests` in the same directory that `pyproject.toml` exists in, to
 make sure that any changes will still build and satisfy a simple test.
