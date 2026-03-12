@@ -16,7 +16,7 @@ asgi = ["starlette"]
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.11.2"
-black = "^24.8.0"
+black = ">=24.8,<27.0"
 pytest = "^8.4.0"
 ruff = "^0.6.3"
 
